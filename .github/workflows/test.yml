@@ -18,8 +18,10 @@ jobs:
     container: swift:${{ matrix.swift }}-bookworm
     steps:
     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
-    - name: Install xcbeautify
-      run: brew install xcbeautify
+    - uses: Cyberbeni/install-swift-tool@3e64399182624849907288859830d866715f4ea3  # v3.1.10
+      with:
+        url: https://github.com/cpisciotta/xcbeautify
+        version: "*"
     - name: Run tests
       run: swift test 2>&1 | xcbeautify
 
