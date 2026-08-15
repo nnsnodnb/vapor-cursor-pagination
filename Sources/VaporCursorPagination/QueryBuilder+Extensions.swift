@@ -19,7 +19,7 @@ extension QueryBuilder {
     maxPageSize: Int = 100,
   ) async throws -> CursorPage<Model> where P.Model == Model, S.Model == Model {
     let query = try request.query.decode(CursorPageRequest.self)
-    let pageSize = Swift::min(Swift::max(query.size ?? defaultPageSize, 1), maxPageSize)
+    let pageSize = Swift.min(Swift.max(query.size ?? defaultPageSize, 1), maxPageSize)
 
     let reverse: Bool
     let primaryPosition: P.Value?
