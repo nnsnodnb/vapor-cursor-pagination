@@ -63,7 +63,7 @@ struct QueryBuilderExtensionsTests {
           for: request,
           sortedBy: \.$created,
           tiebreaker: \.$id,
-          maxPageSize: maxPageSize,
+          maxPageSize: maxPageSize
         )
     }
   }
@@ -86,7 +86,7 @@ struct QueryBuilderExtensionsTests {
           }
           #expect(actual.next == "eyJwIjoxNzg2NzMzNzcwMDAwLCJyIjowLCJzIjoiMDAwMDAwMDAtMDAwMC0wMDAwLTAwMDAtMDAwMDAwMDAwMDEwIn0")
           #expect(actual.previous == nil)
-        },
+        }
       )
     }
   }
@@ -110,7 +110,7 @@ struct QueryBuilderExtensionsTests {
           #expect(actual.next == "eyJwIjoxNzg2NzMzNzg2MDAwLCJyIjowLCJzIjoiMDAwMDAwMDAtMDAwMC0wMDAwLTAwMDAtMDAwMDAwMDAwMDI2In0")
           print(actual.next!)
           #expect(actual.previous == nil)
-        },
+        }
       )
     }
   }
@@ -135,7 +135,7 @@ struct QueryBuilderExtensionsTests {
           #expect(
             actual.previous == "eyJwIjoxNzg2NzMzNzg1MDAwLCJyIjoxLCJzIjoiMDAwMDAwMDAtMDAwMC0wMDAwLTAwMDAtMDAwMDAwMDAwMDI1In0"
           )
-        },
+        }
       )
     }
   }
@@ -160,7 +160,7 @@ struct QueryBuilderExtensionsTests {
           #expect(
             actual.previous == "eyJwIjoxNzg2NzMzNzg1MDAwLCJyIjoxLCJzIjoiMDAwMDAwMDAtMDAwMC0wMDAwLTAwMDAtMDAwMDAwMDAwMDI1In0"
           )
-        },
+        }
       )
     }
   }
@@ -183,7 +183,7 @@ struct QueryBuilderExtensionsTests {
           }
           #expect(actual.next == "eyJwIjoxNzg2NzMzNzg2MDAwLCJyIjowLCJzIjoiMDAwMDAwMDAtMDAwMC0wMDAwLTAwMDAtMDAwMDAwMDAwMDI2In0")
           #expect(actual.previous == nil)
-        },
+        }
       )
     }
   }
@@ -208,7 +208,7 @@ struct QueryBuilderExtensionsTests {
           #expect(
             actual.previous == "eyJwIjoxNzg2NzMzNzg3MDAwLCJyIjoxLCJzIjoiMDAwMDAwMDAtMDAwMC0wMDAwLTAwMDAtMDAwMDAwMDAwMDI3In0"
           )
-        },
+        }
       )
     }
   }
@@ -231,7 +231,7 @@ struct QueryBuilderExtensionsTests {
           }
           #expect(actual.next == "eyJwIjoxNzg2NzMzNzg4MDAwLCJyIjowLCJzIjoiMDAwMDAwMDAtMDAwMC0wMDAwLTAwMDAtMDAwMDAwMDAwMDI4In0")
           #expect(actual.previous == nil)
-        },
+        }
       )
     }
   }
@@ -247,7 +247,7 @@ struct QueryBuilderExtensionsTests {
         "todos/?cursor=invalid_cursor",
         afterResponse: { response in
           #expect(response.status == .badRequest)
-        },
+        }
       )
     }
   }

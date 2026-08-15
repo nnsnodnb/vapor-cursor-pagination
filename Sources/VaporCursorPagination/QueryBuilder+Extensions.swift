@@ -16,7 +16,7 @@ extension QueryBuilder {
     direction: CursorPageDirection = .descending,
     tiebreaker secondaryKeyPath: KeyPath<Model, S>,
     defaultPageSize: Int = 20,
-    maxPageSize: Int = 100,
+    maxPageSize: Int = 100
   ) async throws -> CursorPage<Model> where P.Model == Model, S.Model == Model {
     let query = try request.query.decode(CursorPageRequest.self)
     let pageSize = Swift.min(Swift.max(query.size ?? defaultPageSize, 1), maxPageSize)
@@ -90,7 +90,7 @@ extension QueryBuilder {
     return CursorPage(
       items: items,
       next: nextCursor,
-      previous: previousCursor,
+      previous: previousCursor
     )
   }
 }

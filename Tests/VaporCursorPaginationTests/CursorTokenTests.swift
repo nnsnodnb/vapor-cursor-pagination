@@ -15,9 +15,9 @@ struct CursorTokenTests {
       [true, false],
       [
         "eyJzIjoiMDAwMDAwMDAtMDAwMC0wMDAwLTAwMDAtMDAwMDAwMDAwMDAwIiwiciI6MSwicCI6MTc4NjczMzc5MDAwMH0",
-        "eyJyIjowLCJwIjoxNzg2NzMzNzkwMDAwLCJzIjoiMDAwMDAwMDAtMDAwMC0wMDAwLTAwMDAtMDAwMDAwMDAwMDAwIn0",
-      ],
-    ),
+        "eyJyIjowLCJwIjoxNzg2NzMzNzkwMDAwLCJzIjoiMDAwMDAwMDAtMDAwMC0wMDAwLTAwMDAtMDAwMDAwMDAwMDAwIn0"
+      ]
+    )
   )
   func initializeFromCursorString(reverse: Bool, cursorString: String) throws {
     let actual = try CursorToken<Date, UUID>(from: cursorString)
@@ -48,7 +48,7 @@ struct CursorTokenTests {
     let jsonObject: [String: Any] = [
       "p": 1786620141595.544,
       "s": "58CBFAE1-B53A-4B47-A7F6-73B74111CB8B",
-      "r": reverse,
+      "r": reverse
     ]
     let data = try JSONSerialization.data(withJSONObject: jsonObject, options: .init())
 
@@ -66,9 +66,9 @@ struct CursorTokenTests {
       [true, false],
       [
         "eyJwIjoxNzg2NzMzNzkwMDAwLCJyIjoxLCJzIjoiMDAwMDAwMDAtMDAwMC0wMDAwLTAwMDAtMDAwMDAwMDAwMDAwIn0",
-        "eyJwIjoxNzg2NzMzNzkwMDAwLCJyIjowLCJzIjoiMDAwMDAwMDAtMDAwMC0wMDAwLTAwMDAtMDAwMDAwMDAwMDAwIn0",
-      ],
-    ),
+        "eyJwIjoxNzg2NzMzNzkwMDAwLCJyIjowLCJzIjoiMDAwMDAwMDAtMDAwMC0wMDAwLTAwMDAtMDAwMDAwMDAwMDAwIn0"
+      ]
+    )
   )
   func encodedString(reverse: Bool, expect: String) throws {
     let dateComponents = DateComponents(
@@ -80,7 +80,7 @@ struct CursorTokenTests {
       hour: 3,
       minute: 56,
       second: 30,
-      nanosecond: 0,
+      nanosecond: 0
     )
     guard let now = dateComponents.date,
           let uuid = UUID(uuidString: "00000000-0000-0000-0000-000000000000") else {

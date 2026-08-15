@@ -14,7 +14,7 @@ struct CursorPageRequestTests {
   func decodeAllFields() throws {
     let jsonObject: [String: Any] = [
       "cursor": "eyJyIjowLCJwIjoxNzg2NzMzNzkwMDAwLCJzIjoiMDAwMDAwMDAtMDAwMC0wMDAwLTAwMDAtMDAwMDAwMDAwMDAwIn0",
-      "size": 20,
+      "size": 20
     ]
     let data = try JSONSerialization.data(withJSONObject: jsonObject, options: .init())
 
@@ -40,7 +40,7 @@ struct CursorPageRequestTests {
   @Test
   func decodeOnlySizeField() throws {
     let jsonObject: [String: Any] = [
-      "size": 20,
+      "size": 20
     ]
     let data = try JSONSerialization.data(withJSONObject: jsonObject, options: .init())
 
@@ -53,7 +53,7 @@ struct CursorPageRequestTests {
   @Test
   func decodeOnlyCursorField() throws {
     let jsonObject: [String: Any] = [
-      "cursor": "eyJyIjowLCJwIjoxNzg2NzMzNzkwMDAwLCJzIjoiMDAwMDAwMDAtMDAwMC0wMDAwLTAwMDAtMDAwMDAwMDAwMDAwIn0",
+      "cursor": "eyJyIjowLCJwIjoxNzg2NzMzNzkwMDAwLCJzIjoiMDAwMDAwMDAtMDAwMC0wMDAwLTAwMDAtMDAwMDAwMDAwMDAwIn0"
     ]
     let data = try JSONSerialization.data(withJSONObject: jsonObject, options: .init())
 
