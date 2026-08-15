@@ -22,7 +22,16 @@ struct CursorTokenTests {
   func initializeFromCursorString(reverse: Bool, cursorString: String) throws {
     let actual = try CursorToken<Date, UUID>(from: cursorString)
 
-    let dateComponents = DateComponents(calendar: .current, year: 2026, month: 8, day: 15, hour: 3, minute: 56, second: 30)
+    let dateComponents = DateComponents(
+      calendar: .init(identifier: .gregorian),
+      timeZone: .init(identifier: "Asia/Tokyo"),
+      year: 2026,
+      month: 8,
+      day: 15,
+      hour: 3,
+      minute: 56,
+      second: 30
+    )
     guard let expectPrimary = dateComponents.date else {
       Issue.record("Invalid date")
       return
@@ -56,15 +65,15 @@ struct CursorTokenTests {
     arguments: zip(
       [true, false],
       [
-        "eyJwIjoxNzg2NzY2MTkwMDAwLCJyIjoxLCJzIjoiMDAwMDAwMDAtMDAwMC0wMDAwLTAwMDAtMDAwMDAwMDAwMDAwIn0",
-        "eyJwIjoxNzg2NzY2MTkwMDAwLCJyIjowLCJzIjoiMDAwMDAwMDAtMDAwMC0wMDAwLTAwMDAtMDAwMDAwMDAwMDAwIn0",
+        "eyJwIjoxNzg2NzMzNzkwMDAwLCJyIjoxLCJzIjoiMDAwMDAwMDAtMDAwMC0wMDAwLTAwMDAtMDAwMDAwMDAwMDAwIn0",
+        "eyJwIjoxNzg2NzMzNzkwMDAwLCJyIjowLCJzIjoiMDAwMDAwMDAtMDAwMC0wMDAwLTAwMDAtMDAwMDAwMDAwMDAwIn0",
       ],
     ),
   )
   func encodedString(reverse: Bool, expect: String) throws {
     let dateComponents = DateComponents(
       calendar: .init(identifier: .gregorian),
-      timeZone: .init(secondsFromGMT: 0),
+      timeZone: .init(identifier: "Asia/Tokyo"),
       year: 2026,
       month: 8,
       day: 15,

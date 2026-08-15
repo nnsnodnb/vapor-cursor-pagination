@@ -33,7 +33,16 @@ struct QueryBuilderExtensionsTests {
   private func initialTodos(on database: any Database) async throws -> [TestTodo] {
     var todos: [TestTodo] = []
     for index in 1..<30 {
-      let dateComponents = DateComponents(calendar: .current, year: 2026, month: 8, day: 15, hour: 3, minute: 56, second: index)
+      let dateComponents = DateComponents(
+        calendar: .init(identifier: .gregorian),
+        timeZone: .init(identifier: "Asia/Tokyo"),
+        year: 2026,
+        month: 8,
+        day: 15,
+        hour: 3,
+        minute: 56,
+        second: index
+      )
       guard let created = dateComponents.date else {
         Issue.record("Invalid date")
         break
