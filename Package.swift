@@ -1,4 +1,4 @@
-// swift-tools-version: 6.3
+// swift-tools-version: 6.0
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -6,12 +6,12 @@ import PackageDescription
 let package = Package(
   name: "VaporCursorPagination",
   platforms: [
-    .macOS(.v10_15),
+    .macOS(.v10_15)
   ],
   products: [
     .library(
       name: "VaporCursorPagination",
-      targets: ["VaporCursorPagination"],
+      targets: ["VaporCursorPagination"]
     ),
   ],
   dependencies: [
@@ -19,15 +19,15 @@ let package = Package(
     .package(url: "https://github.com/vapor/vapor.git", from: "4.0.0"),
     // for testing
     .package(url: "https://github.com/vapor/fluent.git", from: "4.4.0"),
-    .package(url: "https://github.com/vapor/fluent-sqlite-driver.git", from: "4.9.0"),
+    .package(url: "https://github.com/vapor/fluent-sqlite-driver.git", from: "4.9.0")
   ],
   targets: [
     .target(
       name: "VaporCursorPagination",
       dependencies: [
         .fluentKit,
-        .vapor,
-      ],
+        .vapor
+      ]
     ),
     .testTarget(
       name: "VaporCursorPaginationTests",
@@ -35,11 +35,11 @@ let package = Package(
         "VaporCursorPagination",
         .fluent,
         .fluentSQLiteDriver,
-        .vaporTesting,
-      ],
-    ),
+        .vaporTesting
+      ]
+    )
   ],
-  swiftLanguageModes: [.v6],
+  swiftLanguageModes: [.v6]
 )
 
 extension PackageDescription.Target.Dependency {
