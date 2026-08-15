@@ -19,7 +19,6 @@ jobs:
     steps:
     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
     - name: Install xcbeautify
-      if: startsWith(matrix.os, 'ubuntu-')
       run: brew install xcbeautify
     - name: Run tests
       run: swift test 2>&1 | xcbeautify
