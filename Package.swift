@@ -4,7 +4,7 @@
 import PackageDescription
 
 let package = Package(
-  name: "VaporCursorPagination",
+  name: "vapor-cursor-pagination",
   platforms: [
     .macOS(.v10_15)
   ],
