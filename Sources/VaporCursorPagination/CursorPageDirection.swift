@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum CursorPageDirection {
+public enum CursorPageDirection: Sendable {
   case ascending
   case descending
 }
