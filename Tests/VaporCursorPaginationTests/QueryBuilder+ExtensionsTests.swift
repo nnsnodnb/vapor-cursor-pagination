@@ -55,13 +55,14 @@ struct QueryBuilderExtensionsTests {
     return todos
   }
 
-  private func addTodoRoute(_ app: Application, maxPageSize: Int = 100) {
+  private func addTodoRoute(_ app: Application, direction: CursorPageDirection, maxPageSize: Int = 100) {
     app.get("todos") { request -> CursorPage<TestTodo> in
       try await TestTodo
         .query(on: request.db)
         .cursorPaginate(
           for: request,
           sortedBy: \.$created,
+          direction: direction,
           tiebreaker: \.$id,
           maxPageSize: maxPageSize
         )
@@ -72,7 +73,7 @@ struct QueryBuilderExtensionsTests {
   func initialRequest() async throws {
     try await withMigrationApp { app in
       try await initialTodos(on: app.db)
-      addTodoRoute(app)
+      addTodoRoute(app, direction: .descending)
 
       try await app.testing().test(
         .GET,
@@ -92,10 +93,33 @@ struct QueryBuilderExtensionsTests {
   }
 
   @Test
+  func initialRequestDirectionIsAscending() async throws {
+    try await withMigrationApp { app in
+      try await initialTodos(on: app.db)
+      addTodoRoute(app, direction: .ascending)
+
+      try await app.testing().test(
+        .GET,
+        "todos/",
+        afterResponse: { response in
+          #expect(response.status == .ok)
+          let actual = try response.content.decode(CursorPage<TestTodo>.self, as: .json)
+          #expect(actual.items.count == 20)
+          for (actualItem, expectIndex) in zip(actual.items, (1..<21)) {
+            #expect(actualItem.title == "Test \(expectIndex)")
+          }
+          #expect(actual.next == "eyJwIjoxNzg2NzMzNzgwMDAwLCJyIjowLCJzIjoiMDAwMDAwMDAtMDAwMC0wMDAwLTAwMDAtMDAwMDAwMDAwMDIwIn0")
+          #expect(actual.previous == nil)
+        }
+      )
+    }
+  }
+
+  @Test
   func initialRequestWithSizeParameter() async throws {
     try await withMigrationApp { app in
       try await initialTodos(on: app.db)
-      addTodoRoute(app)
+      addTodoRoute(app, direction: .descending)
 
       try await app.testing().test(
         .GET,
@@ -119,7 +143,7 @@ struct QueryBuilderExtensionsTests {
   func nextRequestWithCursorParameter() async throws {
     try await withMigrationApp { app in
       try await initialTodos(on: app.db)
-      addTodoRoute(app)
+      addTodoRoute(app, direction: .descending)
 
       try await app.testing().test(
         .GET,
@@ -141,10 +165,35 @@ struct QueryBuilderExtensionsTests {
   }
 
   @Test
+  func nextRequestWithCursorParameterDirectionIsAscending() async throws {
+    try await withMigrationApp { app in
+      try await initialTodos(on: app.db)
+      addTodoRoute(app, direction: .ascending)
+
+      try await app.testing().test(
+        .GET,
+        "todos/?cursor=eyJwIjoxNzg2NzMzNzgwMDAwLCJyIjowLCJzIjoiMDAwMDAwMDAtMDAwMC0wMDAwLTAwMDAtMDAwMDAwMDAwMDIwIn0",
+        afterResponse: { response in
+          #expect(response.status == .ok)
+          let actual = try response.content.decode(CursorPage<TestTodo>.self, as: .json)
+          #expect(actual.items.count == 9)
+          for (actualItem, expectIndex) in zip(actual.items, (21..<29)) {
+            #expect(actualItem.title == "Test \(expectIndex)")
+          }
+          #expect(actual.next == nil)
+          #expect(
+            actual.previous == "eyJwIjoxNzg2NzMzNzgxMDAwLCJyIjoxLCJzIjoiMDAwMDAwMDAtMDAwMC0wMDAwLTAwMDAtMDAwMDAwMDAwMDIxIn0"
+          )
+        }
+      )
+    }
+  }
+
+  @Test
   func nextRequestWithCursorAndSizeParameter() async throws {
     try await withMigrationApp { app in
       try await initialTodos(on: app.db)
-      addTodoRoute(app)
+      addTodoRoute(app, direction: .descending)
 
       try await app.testing().test(
         .GET,
@@ -169,7 +218,7 @@ struct QueryBuilderExtensionsTests {
   func previousRequestWithCursorParameter() async throws {
     try await withMigrationApp { app in
       try await initialTodos(on: app.db)
-      addTodoRoute(app)
+      addTodoRoute(app, direction: .descending)
 
       try await app.testing().test(
         .GET,
@@ -192,7 +241,7 @@ struct QueryBuilderExtensionsTests {
   func previousRequestWithCursorAndSizeParameter() async throws {
     try await withMigrationApp { app in
       try await initialTodos(on: app.db)
-      addTodoRoute(app)
+      addTodoRoute(app, direction: .descending)
 
       try await app.testing().test(
         .GET,
@@ -217,7 +266,7 @@ struct QueryBuilderExtensionsTests {
   func overMaxPageSize() async throws {
     try await withMigrationApp { app in
       try await initialTodos(on: app.db)
-      addTodoRoute(app, maxPageSize: 2)
+      addTodoRoute(app, direction: .descending, maxPageSize: 2)
 
       try await app.testing().test(
         .GET,
@@ -240,7 +289,7 @@ struct QueryBuilderExtensionsTests {
   func invalidCursorString() async throws {
     try await withMigrationApp { app in
       try await initialTodos(on: app.db)
-      addTodoRoute(app)
+      addTodoRoute(app, direction: .descending)
 
       try await app.testing().test(
         .GET,
