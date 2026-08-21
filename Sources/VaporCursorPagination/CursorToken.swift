@@ -26,9 +26,9 @@ public struct CursorToken<P: Codable, S: Codable>: Codable {
     var base64 = cursor
       .replacingOccurrences(of: "-", with: "+")
       .replacingOccurrences(of: "_", with: "/")
-    while base64.count % 4 != 0 {
-      base64.append("=")
-    }
+    let paddingCount = 4 - (base64.count % 4)
+    let padding = String(repeating: "=", count: paddingCount)
+    base64.append(padding)
     guard let data = Data(base64Encoded: base64) else {
       throw Abort(.badRequest, reason: "Invalid cursor")
     }
