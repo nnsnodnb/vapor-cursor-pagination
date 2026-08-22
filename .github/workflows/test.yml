@@ -64,3 +64,27 @@ jobs:
           ${{ runner.os }}-xcode-${{ matrix.xcode }}-swift-${{ matrix.swift }}-
     - name: Run tests
       run: set -o pipefail && swift test | xcbeautify
+
+  docc:
+    name: Test for documentation build
+    runs-on: macos-26
+
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_26.6.app/Contents/Developer
+
+    steps:
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+    - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9  # v6.1.0
+      with:
+        path: |
+          .build/checkouts
+          .build/repositories
+        key: ${{ runner.os }}-xcode-26.6-swift-6.3-${{ hashFiles('Package.resolved') }}
+        restore-keys: |
+          ${{ runner.os }}-xcode-26.6-swift-6.3-
+    - name: Run building documentation
+      run: |
+        set -o pipefail && \
+          xcodebuild docbuild \
+            -scheme vapor-cursor-pagination \
+            -destination generic/platform=macOS | xcbeautify
