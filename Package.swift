@@ -6,7 +6,11 @@ import PackageDescription
 let package = Package(
   name: "vapor-cursor-pagination",
   platforms: [
-    .macOS(.v10_15)
+    .iOS(.v13),
+    .macOS(.v10_15),
+    .tvOS(.v13),
+    .visionOS(.v1),
+    .watchOS(.v6)
   ],
   products: [
     .library(
