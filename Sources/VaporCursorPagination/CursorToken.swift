@@ -8,6 +8,16 @@
 import Foundation
 import Vapor
 
+/// The codable value encoded into a cursor string.
+///
+/// This type is public to support custom cursor handling, but applications
+/// normally obtain cursor strings from ``CursorPage/next`` or
+/// ``CursorPage/previous`` and pass them back in a request rather than
+/// decoding them directly.
+///
+/// `P` is the primary sort value type and `S` is the secondary (tiebreaker)
+/// sort value type, matching the key path value types passed to
+/// ``VaporCursorPagination/FluentKit/QueryBuilder/cursorPaginate(for:sortedBy:direction:tiebreaker:defaultPageSize:maxPageSize:)``.
 public struct CursorToken<P: Codable, S: Codable>: Codable {
   // MARK: - CodingKeys
   private enum CodingKeys: String, CodingKey {
@@ -17,11 +27,23 @@ public struct CursorToken<P: Codable, S: Codable>: Codable {
   }
 
   // MARK: - Properties
+  /// The primary sort value at the cursor position.
   public let primary: P
+
+  /// The tiebreaker sort value at the cursor position.
   public let secondary: S
+
+  /// Whether the cursor requests records before its position.
   public let reverse: Bool
 
-  // MARK: - Initialize
+  // MARK: - Initializers
+  /// Decodes a URL-safe base64 cursor string.
+  ///
+  /// - Parameter cursor: A URL-safe base64 string, typically obtained from
+  ///   ``CursorPage/next`` or ``CursorPage/previous``.
+  /// - Throws: An `Abort` bad-request error when the string is not valid
+  ///   base64, or a `DecodingError` when the decoded JSON does not match
+  ///   `P` and `S`.
   public init(from cursor: String) throws {
     var base64 = cursor
       .replacingOccurrences(of: "-", with: "+")
@@ -37,6 +59,12 @@ public struct CursorToken<P: Codable, S: Codable>: Codable {
     self = try jsonDecoder.decode(CursorToken<P, S>.self, from: data)
   }
 
+  /// Creates a cursor token from its position and navigation direction.
+  ///
+  /// - Parameters:
+  ///   - primary: The primary sort value at the cursor position.
+  ///   - secondary: The tiebreaker sort value at the cursor position.
+  ///   - reverse: Whether the cursor requests records before its position.
   public init(primary: P, secondary: S, reverse: Bool) {
     self.primary = primary
     self.secondary = secondary
@@ -52,6 +80,9 @@ public struct CursorToken<P: Codable, S: Codable>: Codable {
     self.reverse = reverse != 0
   }
 
+  /// Encodes the token as a URL-safe base64 cursor string.
+  ///
+  /// - Throws: An error if the underlying `JSONEncoder` fails to encode `P` or `S`.
   public func encodedString() throws -> String {
     let jsonEncoder = JSONEncoder()
     jsonEncoder.dateEncodingStrategy = .millisecondsSince1970

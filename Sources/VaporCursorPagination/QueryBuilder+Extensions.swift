@@ -10,6 +10,22 @@ import Foundation
 import Vapor
 
 extension QueryBuilder {
+  /// Fetches one cursor-paginated page from this query.
+  ///
+  /// The primary sort key and tiebreaker establish a deterministic order. Use a
+  /// unique tiebreaker, such as the model ID, so records that share a primary
+  /// sort value can still be paginated reliably.
+  ///
+  /// - Parameters:
+  ///   - request: The Vapor request whose `cursor` and `size` query parameters are read.
+  ///   - primaryKeyPath: The primary sort key.
+  ///   - direction: The order used for the initial query. Defaults to ``CursorPageDirection/descending``.
+  ///   - secondaryKeyPath: A unique key used to break ties in the primary sort key.
+  ///   - defaultPageSize: The number of items returned when `size` is absent. Defaults to `20`.
+  ///   - maxPageSize: The maximum number of items a client may request. Defaults to `100`.
+  /// - Returns: A ``CursorPage`` containing the page's models and cursors for the adjacent pages.
+  /// - Throws: An error if the `cursor` or `size` query parameters cannot be decoded,
+  ///   or if the underlying database query fails.
   public func cursorPaginate<P: QueryableProperty, S: QueryableProperty>(
     for request: Request,
     sortedBy primaryKeyPath: KeyPath<Model, P>,
@@ -94,4 +110,3 @@ extension QueryBuilder {
     )
   }
 }
-

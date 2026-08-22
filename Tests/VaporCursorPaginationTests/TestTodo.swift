@@ -19,7 +19,7 @@ final class TestTodo: Model, @unchecked Sendable {
   @Timestamp(key: "created", on: .none, format: .default)
   var created: Date?
 
-  // MARK: - Initialize
+  // MARK: - Initializers
   init() {
   }
 
