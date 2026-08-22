@@ -2,6 +2,7 @@
 
 [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fnnsnodnb%2Fvapor-cursor-pagination%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/nnsnodnb/vapor-cursor-pagination)
 [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fnnsnodnb%2Fvapor-cursor-pagination%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/nnsnodnb/vapor-cursor-pagination)
+[![](https://img.shields.io/badge/documentation-gray?logo=swift&logoColor=white)](https://swiftpackageindex.com/nnsnodnb/vapor-cursor-pagination/documentation)
 
 `VaporCursorPagination` is a library for Vapor's Fluent that enables cursor-based pagination. Inspired by [Django REST Framework](https://github.com/encode/django-rest-framework).
 
