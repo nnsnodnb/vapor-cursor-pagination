@@ -7,6 +7,11 @@
     {
       "matchManagers": ["github-actions"],
       "minimumReleaseAge": "1 day"
+    },
+    {
+      "matchManagers": ["swift"],
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "enabled": false
     }
   ]
 }
