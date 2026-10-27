@@ -5,7 +5,7 @@ version: 'v0.0.3'
 workflows:
     '.github/workflows/linter.yml':
         - 'actions/checkout@v7.0.1'
-        - 'reviewdog/action-actionlint@v1.73.0'
+        - 'reviewdog/action-actionlint@v1.80.6'
     '.github/workflows/renovate.yml':
         - 'actions/checkout@v7.0.1'
         - 'suzuki-shunsuke/github-action-renovate-config-validator@v2.4.1'
@@ -33,9 +33,9 @@ dependencies:
         commit: 'sha1-820762786026740c76f36085b0efc47a31fe5020'
         owner_id: 44036562
         repo_id: 189476904
-    'reviewdog/action-actionlint@v1.73.0':
-        ref: 'v1.73.0'
-        commit: 'sha1-50842263c20a7c46bd0065b9e624d3c569db061e'
+    'reviewdog/action-actionlint@v1.80.6':
+        ref: 'v1.80.6'
+        commit: 'sha1-48e36f54d8da326b83ab061aee2cc5e01b5ca46f'
         owner_id: 48765237
         repo_id: 385059686
     'suzuki-shunsuke/github-action-renovate-config-validator@v2.4.1':
