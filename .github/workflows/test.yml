@@ -35,7 +35,7 @@ jobs:
       matrix:
         include:
         - os: xcode-27
-          xcode: "27.0"
+          xcode: "27.1"
           swift: "6.4"
         - os: macos-26
           xcode: "26.6"
@@ -66,7 +66,7 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-xcode-${{ matrix.xcode }}-swift-${{ matrix.swift }}-
     - name: Run tests
-      run: set -o pipefail && swift test | xcbeautify
+      run: set -o pipefail && swift test | xcbeautify --renderer github-actions
 
   docc:
     name: Test for documentation build
