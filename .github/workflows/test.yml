@@ -90,4 +90,4 @@ jobs:
         set -o pipefail && \
           xcodebuild docbuild \
             -scheme vapor-cursor-pagination \
-            -destination generic/platform=macOS | xcbeautify
+            -destination generic/platform=macOS | xcbeautify --renderer github-actions
