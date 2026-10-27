@@ -20,7 +20,7 @@ let package = Package(
   ],
   dependencies: [
     .package(url: "https://github.com/vapor/fluent-kit.git", from: "1.48.6"),
-    .package(url: "https://github.com/vapor/vapor.git", from: "4.0.0"),
+    .package(url: "https://github.com/vapor/vapor.git", from: "4.122.3"),
     // for testing
     .package(url: "https://github.com/vapor/fluent.git", from: "4.4.0"),
     .package(url: "https://github.com/vapor/fluent-sqlite-driver.git", from: "4.9.0")
